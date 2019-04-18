@@ -10,6 +10,7 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using MovieWebApi.Providers;
 using MovieWebApi.Models;
+using Microsoft.Owin.Cors;
 
 namespace MovieWebApi
 {
@@ -22,6 +23,8 @@ namespace MovieWebApi
         // For more information on configuring authentication, please visit https://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
+            app.UseCors(CorsOptions.AllowAll);
+
             // Configure the db context and user manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);

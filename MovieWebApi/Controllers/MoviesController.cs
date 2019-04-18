@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace MovieWebApi.Controllers
 {
+    [Authorize]
     public class MoviesController : ApiController
     {
         IMovieRepository _repository;
@@ -19,12 +20,14 @@ namespace MovieWebApi.Controllers
         }
 
         // GET api/movies
+        [AllowAnonymous]
         public IEnumerable<Movie> Get()
         {
             return _repository.GetAll();
         }
 
         // GET api/movies/1
+        [AllowAnonymous]
         public IHttpActionResult Get(int id)
         {
             var movie = _repository.GetById(id);

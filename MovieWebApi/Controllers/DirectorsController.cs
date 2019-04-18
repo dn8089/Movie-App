@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace MovieWebApi.Controllers
 {
+    [Authorize]
     public class DirectorsController : ApiController
     {
         IDirectorRepository _repository { get; set; }
@@ -19,12 +20,14 @@ namespace MovieWebApi.Controllers
         }
 
         // GET api/directors
+        [AllowAnonymous]
         public IEnumerable<Director> Get()
         {
             return _repository.GetAll();
         }
 
         // GET api/directors/1
+        [AllowAnonymous]
         public IHttpActionResult Get(int id)
         {
             Director director = _repository.GetById(id);

@@ -39,8 +39,8 @@ namespace MovieWebApi
             config.DependencyResolver = new UnityResolver(container);
 
             // CORS 
-            var cors = new EnableCorsAttribute("*", "*", "*");
-            config.EnableCors(cors);
+            //var cors = new EnableCorsAttribute("*", "*", "*");
+            //config.EnableCors(cors);
         }
     }
 }
