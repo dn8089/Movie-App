@@ -49,7 +49,7 @@ namespace MovieWebApi.Repository
             db.SaveChanges();
         }
 
-        public void Dispose(bool disposing)
+        protected void Dispose(bool disposing)
         {
             if (disposing)
             {

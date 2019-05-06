@@ -1,5 +1,7 @@
 namespace MovieWebApi.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using MovieWebApi.Models;
     using System;
     using System.Data.Entity;
@@ -13,6 +15,8 @@ namespace MovieWebApi.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
+        public object WriteDebugLine { get; private set; }
+
         protected override void Seed(MovieWebApi.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
@@ -20,14 +24,14 @@ namespace MovieWebApi.Migrations
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
 
-            context.Directors.AddOrUpdate(
+            context.Directors.AddOrUpdate(d => new { d.Name, d.Lastname },
                     new Director() { Id = 1, Name = "Steven", Lastname = "Spielberg", Age = 72},
-                    new Director() { Id = 2, Name = "Kathryn", Lastname = "Bigelow", Age = 67},
-                    new Director() { Id = 3, Name = "Martin", Lastname = "Scorsese", Age = 76},
-                    new Director() { Id = 4, Name = "Quentin", Lastname = "Tarantino", Age = 56}
+                    new Director() { Id = 2, Name = "Kathryn", Lastname = "Bigelow", Age = 67 },
+                    new Director() { Id = 3, Name = "Martin", Lastname = "Scorsese", Age = 76 },
+                    new Director() { Id = 4, Name = "Quentin", Lastname = "Tarantino", Age = 56 }
                 );
 
-            context.Movies.AddOrUpdate(
+            context.Movies.AddOrUpdate(m => m.Name,
                     new Movie() { Id = 1, Name = "Jaws", Genre = "Drama/Mystery", Year = 1975, DirectorId = 1},
                     new Movie() { Id = 2, Name = "Jurassic Park", Genre = "Drama/Mystery", Year = 1993, DirectorId = 1},
                     new Movie() { Id = 3, Name = "Ready Player One", Genre = "Thriller/Fantasy", Year = 2018, DirectorId = 1},
@@ -39,6 +43,22 @@ namespace MovieWebApi.Migrations
                     new Movie() { Id = 9, Name = "Kill Bill: Volume 1", Genre = "Mystery/Crime", Year = 2003, DirectorId = 4},
                     new Movie() { Id = 10, Name = "Django Unchained", Genre = "Drama/Blaxploitation", Year = 2012, DirectorId = 4}
                 );
+
+            /*context.Roles.AddOrUpdate(
+                new IdentityRole { Id="1", Name = "Admin2"}
+                );
+
+            var roleManger = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            string[] roleNames = { "Admin", "Member", "Candidate" };
+            IdentityResult roleResult;
+
+            foreach (var roleName in roleNames)
+            {
+                if (!roleManger.RoleExists(roleName))
+                {
+                    roleResult = roleManger.Create(new IdentityRole(roleName));
+                }
+            }*/
         }
     }
 }
